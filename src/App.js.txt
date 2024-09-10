@@ -1,0 +1,173 @@
+import React, { useState } from 'react';
+import './App.css';
+import html2pdf from 'html2pdf.js';
+import Gauge from 'react-gauge-component'; // Import from react-gauge-component
+import SteadySlider from './components/SteadySlider';
+import FileUpload from './components/FileUpload';
+import { getPauseStatus, getPauseColor } from './utils/dataUtils';
+
+const App = () => {
+  const [data, setData] = useState(null);
+
+  const generatePDF = () => {
+    const element = document.getElementById('pdf-content');
+    if (element) {
+      const options = {
+        margin: [20, 20, 20, 20],
+        filename: 'report.pdf',
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+      };
+      html2pdf().from(element).set(options).save();
+    }
+  };
+
+  const handleFileLoaded = (uploadedData) => {
+    setData(uploadedData);
+  };
+
+  return (
+    <div className="App">
+      <header className="App-header">
+        <h1 style={{ color: '#4CAF50' }}>PDF Report Generator</h1>
+        <div className="button-container">
+          <FileUpload onFileLoaded={handleFileLoaded} />
+          <button
+            onClick={generatePDF}
+            className="generate-pdf-button"
+            disabled={!data}
+          >
+            Generate PDF
+          </button>
+        </div>
+      </header>
+
+      {data && (
+        <div id="pdf-content" className="pdf-content">
+          {/* Reading Section */}
+          <div className="section">
+            <h2 className="section-title">Reading</h2>
+            <div className="progress-bar">
+              <span className="progress-value">{data.Reading.overall}</span>
+              <div className="progress-track">
+                <div
+                  className="progress-fill"
+                  style={{ width: `${data.Reading.overall}%` }}
+                ></div>
+              </div>
+              <div className="progress-label">
+                {data.Reading.overall > 50 ? 'Good' : 'Needs Attention'}
+              </div>
+            </div>
+
+            {/* Speed and Accuracy Gauges */}
+            <div className="gauge-container">
+              <div className="gauge-item">
+                <Gauge
+                  value={parseInt(data.Reading.speed)}
+                  units="WPM"
+                  minValue={0}
+                  maxValue={100}
+                  width={200}
+                  height={200}
+                  color="#4CAF50"
+                />
+                <div className="gauge-label">Speed: {data.Reading.speed} WPM</div>
+              </div>
+              <div className="gauge-item">
+                <Gauge
+                  value={parseInt(data.Reading.accuracy)}
+                  units="%"
+                  minValue={0}
+                  maxValue={100}
+                  width={200}
+                  height={200}
+                  color="#4CAF50"
+                />
+                <div className="gauge-label">Accuracy: {data.Reading.accuracy}%</div>
+              </div>
+            </div>
+
+            {/* Pauses */}
+            <div className="pauses">
+              <h3 className="sub-title">Pauses</h3>
+              <div
+                className="pause-bar"
+                style={{ backgroundColor: getPauseColor(data.Reading.pauses) }}
+              >
+                {getPauseStatus(data.Reading.pauses)}
+              </div>
+            </div>
+          </div>
+
+          {/* Mock to Talk Video Section */}
+          <div className="section">
+            <h2 className="section-title">Mock to Talk Video</h2>
+            <div className="progress-bar">
+              <span className="progress-value">{data.mocktotalk.overall}</span>
+              <div className="progress-track">
+                <div
+                  className="progress-fill"
+                  style={{ width: `${data.mocktotalk.overall}%` }}
+                ></div>
+              </div>
+              <div className="progress-label">
+                {data.mocktotalk.overall > 50 ? 'Optimal' : 'Needs Attention'}
+              </div>
+            </div>
+
+            {/* Speed Gauge */}
+            <div className="gauge-container">
+              <div className="gauge-item">
+                <Gauge
+                  value={parseInt(data.mocktotalk.speed)}
+                  units="%"
+                  minValue={0}
+                  maxValue={100}
+                  width={200}
+                  height={200}
+                  color="#4CAF50"
+                />
+                <div className="gauge-label">Speed: {data.mocktotalk.speed}%</div>
+              </div>
+            </div>
+
+            {/* Emotions */}
+            <div className="emotions">
+              <h3 className="sub-title">Emotions during Interview</h3>
+              <div className="emotions-grid">
+                {['joy', 'sad', 'neutral', 'fear', 'happy'].map((emotion) => (
+                  <div key={emotion} className="emotion-box">
+                    <span className="emotion-icon">
+                      {emotion === 'joy' && '😊'}
+                      {emotion === 'sad' && '😢'}
+                      {emotion === 'neutral' && '😐'}
+                      {emotion === 'fear' && '😨'}
+                      {emotion === 'happy' && '😃'}
+                    </span>
+                    <span className="emotion-label">
+                      {emotion.charAt(0).toUpperCase() + emotion.slice(1)}: {data.mocktotalk.emotion[emotion]}%
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Pauses */}
+            <div className="pauses">
+              <h3 className="sub-title">Pauses</h3>
+              <div
+                className="pause-bar"
+                style={{ backgroundColor: getPauseColor(data.mocktotalk.pauses) }}
+              >
+                {getPauseStatus(data.mocktotalk.pauses)}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default App;

@@ -1,0 +1,18 @@
+import React from 'react';
+import { Slider, Stack } from '@mui/material';
+import VolumeDown from '@mui/icons-material/VolumeDown';
+import VolumeUp from '@mui/icons-material/VolumeUp';
+
+function SteadySlider() {
+  const value = 50; // Preset value
+
+  return (
+    <Stack spacing={2} direction="row" alignItems="center">
+      <VolumeDown />
+      <Slider value={value} disabled aria-labelledby="disabled-slider" />
+      <VolumeUp />
+    </Stack>
+  );
+}
+
+export default SteadySlider;

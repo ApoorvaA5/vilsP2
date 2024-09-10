@@ -1,0 +1,214 @@
+/* General Styles */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif; /* Consistent font */
+}
+
+/* Center the App text */
+.App {
+  text-align: center;
+  width: 100%;
+}
+
+/* Header styling */
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+/* Section title */
+.section-title {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #2196F3;
+}
+
+/* Overall progress bar for reading score */
+.progress-bar {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.progress-track {
+  width: 100%;
+  height: 10px;
+  background-color: #e0e0e0;
+  border-radius: 5px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.progress-fill {
+  height: 100%;
+  background-color: #4CAF50;
+  border-radius: 5px;
+}
+
+.score-box {
+  display: inline-block;
+  font-size: 24px;
+  font-weight: bold;
+  background-color: #DFFFD6;
+  padding: 10px 20px;
+  border-radius: 10px;
+  margin-left: 20px;
+  color: #4CAF50;
+}
+
+/* Gauge Chart Container */
+.gauge-container {
+  display: flex;
+  justify-content: space-around; /* Ensure equal spacing between gauges */
+  margin-bottom: 20px;
+}
+
+.gauge-item {
+  text-align: center;
+  margin: 0 15px; /* Ensure proper spacing between gauges */
+}
+
+.gauge-label {
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+/* Gauge Row for Mock to Talk Video Section */
+.gauge-row {
+  display: flex;
+  justify-content: space-around; /* Center gauges horizontally */
+  margin-bottom: 20px;
+}
+
+/* Pauses Section with Multi-Color Bar */
+.pauses {
+  margin-top: 20px;
+}
+
+.pause-bar-container {
+  display: flex;
+  justify-content: center; /* Center the pause bar */
+}
+
+.pause-bar {
+  width: 100%;
+  height: 20px;
+  border-radius: 10px;
+  display: flex;
+  background-color: #dcdcdc;
+  position: relative;
+}
+
+.pause-segment {
+  height: 100%;
+  border-radius: 10px;
+}
+
+.pause-optimal {
+  background-color: #4CAF50;
+  width: 25%;
+}
+
+.pause-good {
+  background-color: #8BC34A;
+  width: 25%;
+}
+
+.pause-fair {
+  background-color: #FFEB3B;
+  width: 25%;
+}
+
+.pause-attention {
+  background-color: #F44336;
+  width: 25%;
+}
+
+/* Emotion Grid */
+.emotions-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.emotion-box {
+  background-color: #f0f0f0;
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.emotion-icon {
+  font-size: 24px;
+  display: block;
+  margin-bottom: 5px;
+}
+
+/* File Upload and Generate PDF button container */
+.button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+/* Generate PDF button styles */
+.generate-pdf-button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.generate-pdf-button:hover {
+  background-color: #45a049;
+  transform: scale(1.05);
+}
+
+.generate-pdf-button:disabled {
+  background-color: #9e9e9e;
+  cursor: not-allowed;
+}
+
+/* Content wrapper for layout */
+.content-wrapper {
+  padding: 20px;
+  margin: 0 auto;
+  max-width: 800px;
+  box-sizing: border-box;
+}
+
+/* Hides elements on screen but shows when printing */
+.hide-on-screen {
+  display: none;
+}
+
+@media print {
+  .hide-on-screen {
+    display: block;
+  }
+}
+
+/* Responsive grid for the emotions */
+.emotions-container {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  margin-top: 10px;
+  justify-content: center;
+}

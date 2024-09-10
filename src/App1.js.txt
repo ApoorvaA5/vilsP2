@@ -1,0 +1,113 @@
+import './App.css';
+import React from 'react';
+import html2pdf from 'html2pdf.js';
+import GaugeChart from 'react-gauge-chart';
+import { Slider, Stack } from '@mui/material';
+const generatePDF = () => {
+    const element = document.getElementById('pdf-content');
+    html2pdf().from(element).save('report.pdf');
+  };
+  
+  const data = {
+    Reading: {
+      overall: 78,
+      speed: '88wpm',
+      accuracy: '39%',
+      pauses: 7,
+    },
+    mocktotalk: {
+      overall: 78,
+      speed: '88wpm',
+      emotion: {
+        joy: 30,
+        sad: 50,
+        neutral: 20,
+        fear: 20,
+        happy: 20,
+      },
+      pauses: 7,
+    },
+  };
+  
+  function SteadySlider({ value }) {
+    return (
+      <Stack spacing={2} direction="row" alignItems="center">
+        <Slider value={value} disabled aria-labelledby="disabled-slider" />
+      </Stack>
+    );
+  }
+  
+  function Gauge({ value }) {
+    const validValue = isNaN(value) ? 0 : value;
+    return (
+      <div style={{ width: '25%' }}>
+        <GaugeChart id="gauge-chart1" 
+                    nrOfLevels={30} 
+                    percent={validValue / 100} 
+                    textColor="#000000" />
+      </div>
+    );
+  }
+  
+  function App() {
+    return (
+      <div style={{ fontFamily: 'Arial, sans-serif', padding: '20px' }}>
+        <h1 style={{ textAlign: 'center', color: '#4CAF50' }}>PDF Report Generator</h1>
+        <button 
+          onClick={generatePDF} 
+          style={{ 
+            backgroundColor: '#4CAF50', 
+            color: 'white', 
+            padding: '10px 20px', 
+            border: 'none', 
+            borderRadius: '5px', 
+            cursor: 'pointer' 
+          }}
+        >
+          Generate PDF
+        </button>
+        <div id="pdf-content" style={{ marginTop: '20px' }}>
+          
+          <h2 style={{ color: '#2196F3' }}>Reading Section</h2>
+          <SteadySlider value={data.Reading.overall} />
+       
+          <div className="gauge-container" style={{ display: 'flex', justifyContent: 'space-around', marginTop: '20px' }}>
+            <Gauge value={parseInt(data.Reading.speed)} />
+            <Gauge value={parseInt(data.Reading.accuracy)} />
+          </div>
+  
+          <div style={{ marginTop: '20px' }}>
+            <h3 style={{ color: '#FF9800' }}>Emotions</h3>
+            <div>😊 Joy: {data.mocktotalk.emotion.joy}%</div>
+            <div>😢 Sad: {data.mocktotalk.emotion.sad}%</div>
+            <div>😐 Neutral: {data.mocktotalk.emotion.neutral}%</div>
+            <div>😨 Fear: {data.mocktotalk.emotion.fear}%</div>
+            <div>😃 Happy: {data.mocktotalk.emotion.happy}%</div>
+          </div>
+          <div style={{ marginTop: '20px' }}>
+            <h3 style={{ color: '#9C27B0' }}>Pauses</h3>
+            <div style={{ color: getPauseColor(data.Reading.pauses) }}>
+              {getPauseStatus(data.Reading.pauses)}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+  
+  
+const getPauseStatus = (pauses) => {
+  if (pauses >= 0 && pauses <= 3) return 'Optimal';
+  if (pauses >= 4 && pauses <= 6) return 'Good';
+  if (pauses >= 7 && pauses <= 10) return 'Fair';
+  return 'Needs Attention';
+};
+
+const getPauseColor = (pauses) => {
+  if (pauses >= 0 && pauses <= 3) return 'green';
+  if (pauses >= 4 && pauses <= 6) return 'orange';
+  if (pauses >= 7 && pauses <= 10) return 'red';
+  return 'black';
+};
+
+export default App;
