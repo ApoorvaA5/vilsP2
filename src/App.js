@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import './App.css';
 import html2pdf from 'html2pdf.js';
 import Gauge from 'react-gauge-component';
-import SteadySlider from './components/SteadySlider';
 import FileUpload from './components/FileUpload';
 import { getPauseStatus, getPauseColor } from './utils/dataUtils';
 
