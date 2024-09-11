@@ -1,7 +1,7 @@
-// App.js
-
 import React, { useState } from 'react';
-import './App.css';
+
+
+import './App.css'; // Ensure this contains the updated CSS.
 import html2pdf from 'html2pdf.js';
 import Gauge from 'react-gauge-component';
 import FileUpload from './components/FileUpload';
@@ -48,20 +48,28 @@ const App = () => {
           {/* Reading Section */}
           <div className="section">
             <h2 className="section-title">Reading</h2>
-            <div className="progress-bar">
-              <span className="progress-value">{data.Reading.overall}</span>
-              <div className="progress-track">
-                <div
-                  className="progress-fill"
-                  style={{ width: `${data.Reading.overall}%` }}
-                ></div>
-              </div>
-              <div className="progress-label">
-                {data.Reading.overall > 50 ? 'Good' : 'Needs Attention'}
+            <div className="overall-reading">
+              <div className="progress-bar-container">
+                <span className="progress-label">Overall Reading</span>
+                <div className="progress-track">
+                  <div
+                    className="progress-fill"
+                    style={{ width: `${data.Reading.overall}%` }}
+                  ></div>
+                  <div
+                    className="progress-value-circle"
+                    style={{ left: `calc(${data.Reading.overall}% - 50px)` }}
+                  >
+                    <span className="progress-value">{data.Reading.overall}</span>
+                  </div>
+                </div>
+                <span className="progress-status">
+                  {data.Reading.overall > 50 ? 'Good' : 'Needs Attention'}
+                </span>
               </div>
             </div>
 
-            {/* Speed and Accuracy Gauges */}
+            {/* Gauges for Speed and Accuracy */}
             <div className="gauge-container">
               <div className="gauge-item">
                 <Gauge
@@ -69,8 +77,8 @@ const App = () => {
                   units="WPM"
                   minValue={0}
                   maxValue={100}
-                  width={150} // Consistent width
-                  height={150} // Consistent height
+                  width={150}
+                  height={150}
                   color="#4CAF50"
                 />
                 <div className="gauge-label">Speed: {data.Reading.speed} WPM</div>
@@ -81,96 +89,130 @@ const App = () => {
                   units="%"
                   minValue={0}
                   maxValue={100}
-                  width={150} // Consistent width
-                  height={150} // Consistent height
+                  width={150}
+                  height={150}
                   color="#4CAF50"
                 />
                 <div className="gauge-label">Accuracy: {data.Reading.accuracy}%</div>
               </div>
             </div>
 
-            {/* Pauses */}
-            <div className="pauses">
-              <h3 className="sub-title">Pauses</h3>
-              <div className="pause-bar-container">
-                <div
-                  className="pause-bar"
-                  style={{ backgroundColor: getPauseColor(data.Reading.pauses) }}
-                >
-                  <span className="pause-bar-label">
-                    {getPauseStatus(data.Reading.pauses)}
-                  </span>
-                </div>
-              </div>
-            </div>
+            {/* Pauses Section */}
+            <div class="pauses">
+  <h3>Pauses</h3>
+  <div class="pause-bar-container">
+    <div class="pause-bar">
+      <div class="pause-segment pause-optimal"></div>
+      <div class="pause-segment pause-good"></div>
+      <div class="pause-segment pause-fair"></div>
+      <div class="pause-segment pause-attention"></div>
+    </div>
+    
+    <div class="pause-indicator"></div>
+  </div>
+  <div class="pause-labels">
+    <span class="pause-label">Optimal</span>
+    <span class="pause-label">Good</span>
+    <span class="pause-label">Fair</span>
+    <span class="pause-label">Needs Attention</span>
+  </div>
+</div>
+
           </div>
 
           {/* Mock to Talk Video Section */}
           <div className="section">
             <h2 className="section-title">Mock to Talk Video</h2>
-            <div className="progress-bar">
-              <span className="progress-value">{data.mocktotalk.overall}</span>
-              <div className="progress-track">
-                <div
-                  className="progress-fill"
-                  style={{ width: `${data.mocktotalk.overall}%` }}
-                ></div>
-              </div>
-              <div className="progress-label">
-                {data.mocktotalk.overall > 50 ? 'Optimal' : 'Needs Attention'}
+            <div className="overall-reading">
+              <div className="progress-bar-container">
+                <span className="progress-label">Overall Performance</span>
+                <div className="progress-track">
+                  <div
+                    className="progress-fill"
+                    style={{ width: `${data.mocktotalk.overall}%` }}
+                  ></div>
+                  <div
+                    className="progress-value-circle"
+                    style={{ left: `calc(${data.mocktotalk.overall}% - 25px)` }}
+                  >
+                    <span className="progress-value">{data.mocktotalk.overall}</span>
+                  </div>
+                </div>
+                <span className="progress-status">
+                  {data.mocktotalk.overall > 50 ? 'Optimal' : 'Needs Attention'}
+                </span>
               </div>
             </div>
-            <div className='gauge-row'>
-              {/* Speed Gauge */}
+
+            {/* Gauge for Speed */}
+            <div className='main'>
+            <div className="gauge-container">
               <div className="gauge-item">
                 <Gauge
                   value={parseInt(data.mocktotalk.speed)}
                   units="%"
                   minValue={0}
                   maxValue={100}
-                  width={150} // Consistent width
-                  height={150} // Consistent height
+                  width={150}
+                  height={150}
                   color="#4CAF50"
                 />
                 <div className="gauge-label">Speed: {data.mocktotalk.speed}%</div>
               </div>
-
-              {/* Emotions */}
-              <div className="emotions">
-                <h3 className="sub-title">Emotions during Interview</h3>
-                <div className="emotions-grid">
-                  {['joy', 'sad', 'neutral', 'fear', 'happy'].map((emotion) => (
-                    <div key={emotion} className="emotion-box">
-                      <span className="emotion-icon">
-                        {emotion === 'joy' && '😊'}
-                        {emotion === 'sad' && '😢'}
-                        {emotion === 'neutral' && '😐'}
-                        {emotion === 'fear' && '😨'}
-                        {emotion === 'happy' && '😃'}
-                      </span>
-                      <span className="emotion-label">
-                        {emotion.charAt(0).toUpperCase() + emotion.slice(1)}: {data.mocktotalk.emotion[emotion]}%
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
             </div>
 
-            {/* Pauses */}
-            <div className="pauses">
-              <h3 className="sub-title">Pauses</h3>
-              <div className="pause-bar-container">
-                <div
-                  className="pause-bar"
-                  style={{ backgroundColor: getPauseColor(data.mocktotalk.pauses) }}
-                >
-                  <span className="pause-bar-label">
-                    {getPauseStatus(data.mocktotalk.pauses)}
-                  </span>
-                </div>
-              </div>
-            </div>
+            {/* Emotions Section */}
+            
+            <div className="emotions">
+  <h3 className="sub-title">Emotions during Interview</h3>
+  <div className="emotions-grid">
+    {['joy', 'sad', 'neutral', 'fear', 'happy'].map((emotion) => (
+      <div key={emotion} className="emotion-box">
+        <span className="emotion-label">
+          {/* Display percentage once */}
+          {data.mocktotalk.emotion[emotion]}
+        </span>
+        <span className="emotion-icon-label">
+          {/* Emoji and Emotion together */}
+          {emotion === 'joy' && '😊Joy'}
+          {emotion === 'sad' && '😢Sad'}
+          {emotion === 'neutral' && '😐Neutral'}
+          {emotion === 'fear' && '😨Fear'}
+          {emotion === 'happy' && '😃Happy'}
+        </span>
+      </div>
+    ))}
+  </div>
+</div>
+
+
+</div>
+
+
+            {/* Pauses Section */}
+            
+            <div class="pauses">
+  <h3>Pauses</h3>
+  <div class="pause-bar-container">
+    <div class="pause-bar">
+      <div class="pause-segment pause-optimal"></div>
+      <div class="pause-segment pause-good"></div>
+      <div class="pause-segment pause-fair"></div>
+      <div class="pause-segment pause-attention"></div>
+    </div>
+    
+    <div class="pause-indicator"></div>
+  </div>
+  <div class="pause-labels">
+    <span class="pause-label">Optimal</span>
+    <span class="pause-label">Good</span>
+    <span class="pause-label">Fair</span>
+    <span class="pause-label">Needs Attention</span>
+  </div>
+</div>
+
+
+  
           </div>
         </div>
       )}
@@ -179,3 +221,4 @@ const App = () => {
 };
 
 export default App;
+
