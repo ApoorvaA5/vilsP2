@@ -1,8 +1,7 @@
-/* General Styles */
 body {
   margin: 0;
   padding: 0;
-  font-family: Arial, sans-serif; /* Consistent font */
+  font-family: Arial, sans-serif;
 }
 
 /* Center the App text */
@@ -26,24 +25,29 @@ body {
 /* Section title */
 .section-title {
   font-size: 24px;
+  font-weight: bold;
   margin-bottom: 10px;
-  color: #2196F3;
+  color: black;
 }
 
 /* Overall progress bar for reading score */
-.progress-bar {
-  margin-bottom: 20px;
+.progress-bar-container {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  background-color: #e9f5ff; /* Light blue background */
+  border-radius: 10px;
+  position: relative;
+  margin-bottom: 20px;
 }
 
 .progress-track {
-  width: 100%;
+  width: 70%; /* Ensures the progress bar doesn't take full width */
   height: 10px;
   background-color: #e0e0e0;
   border-radius: 5px;
-  margin-left: 10px;
-  margin-right: 10px;
+  position: relative;
 }
 
 .progress-fill {
@@ -63,45 +67,65 @@ body {
   color: #4CAF50;
 }
 
+/* Progress value circle */
+.progress-value-circle {
+  position: absolute;
+  top: -25px; /* Adjusts the position above the progress bar */
+  left: calc(70% - 25px); /* Centers it over the filled bar */
+  width: 50px;
+  height: 50px;
+  background-color: white;
+  border: 2px solid #4CAF50;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  font-weight: bold;
+  z-index: 2; /* Ensure it appears above everything */
+}
+
+.progress-status {
+  font-size: 1.2em;
+  color: white;
+  background-color: #4CAF50;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
 /* Gauge Chart Container */
 .gauge-container {
   display: flex;
-  justify-content: space-around; /* Ensure equal spacing between gauges */
+  justify-content: space-around;
   margin-bottom: 20px;
+  margin-left:-55px;
 }
 
 .gauge-item {
-  text-align: center;
-  margin: 0 15px; /* Ensure proper spacing between gauges */
+
+  margin: 0 25px;
 }
 
 .gauge-label {
   margin-top: 10px;
   font-size: 16px;
+  margin-left:50px;
 }
 
-/* Gauge Row for Mock to Talk Video Section */
-.gauge-row {
-  display: flex;
-  justify-content: space-around; /* Center gauges horizontally */
-  margin-bottom: 20px;
-}
-
-/* Pauses Section with Multi-Color Bar */
+/* Pauses Section
 .pauses {
   margin-top: 20px;
 }
 
 .pause-bar-container {
   display: flex;
-  justify-content: center; /* Center the pause bar */
+  justify-content: center;
 }
 
 .pause-bar {
   width: 100%;
   height: 20px;
   border-radius: 10px;
-  display: flex;
   background-color: #dcdcdc;
   position: relative;
 }
@@ -129,21 +153,105 @@ body {
 .pause-attention {
   background-color: #F44336;
   width: 25%;
+} */
+
+/* Pauses Section */
+.pauses {
+  margin-top: 20px;
+  text-align: center; /* Center the title */
 }
+
+.pause-bar-container {
+  display: flex;
+  justify-content: center; /* Center the pause bar */
+  position: relative; /* For positioning the circle */
+}
+
+.pause-bar {
+  width: 80%; /* Adjust width to match design */
+  height: 20px;
+  display: flex;
+  overflow: hidden; /* Ensure border-radius works correctly */
+  position: relative;
+  border-radius: 10px; /* Only the outer container gets the full border-radius */
+}
+
+.pause-segment {
+  height: 100%;
+}
+
+.pause-optimal {
+  background-color: #4CAF50; /* Green */
+  width: 25%;
+  border-top-left-radius: 10px; /* Rounded only on the left side */
+  border-bottom-left-radius: 10px; /* Rounded only on the left side */
+}
+
+.pause-good {
+  background-color: #2196F3; /* Blue */
+  width: 25%;
+}
+
+.pause-fair {
+  background-color: #FFEB3B; /* Yellow */
+  width: 25%;
+}
+
+.pause-attention {
+  background-color: #F44336; /* Red */
+  width: 25%;
+  border-top-right-radius: 10px; /* Rounded only on the right side */
+  border-bottom-right-radius: 10px; /* Rounded only on the right side */
+}
+
+/* Pause Indicator Circle */
+.pause-indicator {
+  position: absolute;
+  top: -10px; /* Move it above the bar */
+  left: 45%; /* Adjust based on the segment; can be dynamic */
+  width: 35px;
+  height: 35px;
+  background-color: white;
+  border: 2px solid #2196F3; /* Border matches the 'Good' section */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: #000;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Pause labels under the bar */
+.pause-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+ margin-left:75px;
+  width: 80%; /* Same width as the pause-bar */
+}
+
+.pause-label {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
+
 
 /* Emotion Grid */
 .emotions-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 10px;
+  grid-template-columns: repeat(5, 3fr);
+  gap: 0px;
   margin-top: 20px;
 }
 
 .emotion-box {
-  background-color: #f0f0f0;
+  background-color:white;
   padding: 10px;
-  border-radius: 10px;
-  text-align: center;
+  border: 1px solid grey;
+  border-radius: 0px;
+  height: 50px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -151,6 +259,21 @@ body {
   font-size: 24px;
   display: block;
   margin-bottom: 5px;
+
+}
+.emotion-box:first-child {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+/* Apply border-radius only to the last box in the grid */
+.emotion-box:last-child {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+.main{
+  display:flex;
+  
 }
 
 /* File Upload and Generate PDF button container */
@@ -162,7 +285,6 @@ body {
   margin-top: 20px;
 }
 
-/* Generate PDF button styles */
 .generate-pdf-button {
   background-color: #4CAF50;
   color: white;
@@ -208,7 +330,8 @@ body {
 .emotions-container {
   display: flex;
   flex-direction: row;
-  gap: 10px;
+  gap: 5px;
   margin-top: 10px;
   justify-content: center;
 }
+
