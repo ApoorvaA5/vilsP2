@@ -33,13 +33,24 @@ body {
 /* Overall progress bar for reading score */
 .progress-bar-container {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: row; /* Arrange items in a row */
+  align-items: center; /* Vertically center the progress bar and status */
+  justify-content: space-between; /* Space the progress bar and status evenly */
   padding: 20px;
   background-color: #e9f5ff; /* Light blue background */
   border-radius: 10px;
   position: relative;
   margin-bottom: 20px;
+
+ 
+}
+
+.progress-label {
+  position:absolute;
+margin-top:-30px;
+
+  
+  margin-bottom: 10px; /* Add space between the label and the progress bar */
 }
 
 .progress-track {
@@ -70,20 +81,19 @@ body {
 /* Progress value circle */
 .progress-value-circle {
   position: absolute;
-  top: -25px; /* Adjusts the position above the progress bar */
-  left: calc(70% - 25px); /* Centers it over the filled bar */
+  top: -25px; /* Adjust to position above the progress bar */
   width: 50px;
   height: 50px;
   background-color: white;
   border: 2px solid #4CAF50;
   border-radius: 50%;
   display: flex;
-  justify-content: center;
   align-items: center;
-  font-size: 16px;
+  justify-content: center;
   font-weight: bold;
-  z-index: 2; /* Ensure it appears above everything */
+  color: #000;
 }
+
 
 .progress-status {
   font-size: 1.2em;
@@ -334,4 +344,3 @@ body {
   margin-top: 10px;
   justify-content: center;
 }
-
