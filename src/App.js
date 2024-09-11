@@ -50,6 +50,7 @@ const App = () => {
             <h2 className="section-title">Reading</h2>
             <div className="overall-reading">
               <div className="progress-bar-container">
+              
                 <span className="progress-label">Overall Reading</span>
                 <div className="progress-track">
                   <div
